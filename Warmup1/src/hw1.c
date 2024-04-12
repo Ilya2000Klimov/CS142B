@@ -81,33 +81,28 @@ int expression() {
     return result;
 }
 
-// Main program
-int main(int argc, char **argv) {
-    if (argc < 2) {  // Check for minimum required arguments (at least one option)
-        fprintf(stderr, USAGE);
+// Main function to process expressions from command line arguments
+int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        printf("Usage: %s '<expression>'.\n", argv[0]);
         return 1;
     }
 
-    //For each set of input arguments
-    for (int i = 1; i < argc; i++) {
+    for (int i = 1; i < argc; i++)
+    {
         input = argv[i];
-        //for each expression that ends with '\0' or '.'
-        
-
-
-
-
-        while (*input <= 32 && *input != '\0') input++;  // Skip whitespace
-
-        if (*input != '.') {
-            printf("Error: Each expression must end with a period.\n");
-            return 1;
+        while(*input != '\0')
+        {
+            int result = expression();
+            while (*input == ' ') input++;  // Skip whitespace
+            if (*input != '.' && *input != '\0') {
+                printf("Error: Expression must be deliminated with a period.\n");
+                return 1;
+            }
+            else if (*input == '.')
+                input++;
+            printf("%d\n", result);
         }
-        printf("%d\n", result);
-        input++;
     }
-
-    
-
     return 0;
 }

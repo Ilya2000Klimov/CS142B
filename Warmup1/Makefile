@@ -1,6 +1,6 @@
 CC:=gcc
 CFLAGS:=-g
-BIN_NAME:=53markdown
+BIN_NAME:=expressionEvaluator
 SRC_DIR:=src
 INCLUDE_DIR:=include
 BIN_DIR:=bin
