@@ -11,9 +11,9 @@ BIN_DIR:=bin
 # \trecipe (how to make the target)
 # ...
 # The tab character is important (no spaces), and the recipe is a series of shell command(s)
-default: src/hw1.c src/helpers1.c
+default: src/warmup1.c src/helpers1.c
 	mkdir -p $(BIN_DIR)
-	$(CC) -I $(INCLUDE_DIR) $(CFLAGS) $(SRC_DIR)/hw1.c $(SRC_DIR)/helpers1.c -o $(BIN_DIR)/$(BIN_NAME)
+	$(CC) -I $(INCLUDE_DIR) $(CFLAGS) $(SRC_DIR)/warmup1.c $(SRC_DIR)/helpers1.c -o $(BIN_DIR)/$(BIN_NAME)
 
 # Standard (ish) rule to clean out files we'd like to re-generate
 clean:

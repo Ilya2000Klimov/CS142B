@@ -1,4 +1,4 @@
-#include "hw1.h"
+#include "warmup1.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>

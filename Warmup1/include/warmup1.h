@@ -1,5 +1,5 @@
-#ifndef HW_1_H
-#define HW_1_H
+#ifndef WARMUP1
+#define WARMUP1
 
 #include <stdio.h>
 #include <stdlib.h>
