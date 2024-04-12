@@ -5,20 +5,17 @@
 #include <stdlib.h>
 #include "helpers1.h"
 
-// Parses an integer number from the current position of the input string.
-int number();
+// Parses an integer number from the current position of the input string and updates the pointer.
+int number(char **input);
 
-// Parses a factor, which is either a simple number or a nested expression
-// enclosed in parentheses.
-int factor();
+// Parses a factor, either a number or a nested expression in parentheses, and updates the pointer.
+int factor(char **input);
 
-// Parses a term, which is a factor potentially followed by multiplication
-// or division operations.
-int term();
+// Parses a term, potentially followed by multiplication or division operations, and updates the pointer.
+int term(char **input);
 
-// Parses an expression, which is a term potentially followed by addition
-// or subtraction operations.
-int expression();
+// Parses an expression, potentially followed by addition or subtraction operations, and updates the pointer.
+int expression(char **input);
 
 
 #define USAGE "digit = \"0\" | \"1\" | ... | \"9\"\n\

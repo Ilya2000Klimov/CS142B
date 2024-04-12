@@ -6,49 +6,44 @@
 
 // You may define any helper functions you want. Place them in helpers.c/.h
 
-char *input;
-
-// Parse a number from the input
-int number() {
+int number(char **input) {
     int result = 0;
-    while (*input >= '0' && *input <= '9') {
-        result = result * 10 + (*input - '0');
-        input++;
+    while (**input >= '0' && **input <= '9') {
+        result = result * 10 + (**input - '0');
+        (*input)++;
     }
     return result;
 }
 
-// Parse a factor: either a number or a parenthesized expression
-int factor() {
-    while (*input == ' ') input++;  // Skip whitespace
+int factor(char **input) {
+    while (**input == ' ') (*input)++;  // Skip whitespace
 
-    if (*input == '(') {
-        input++;  // Skip '('
-        int result = expression();
-        while (*input == ' ') input++;  // Skip whitespace
-        if (*input != ')') {
+    if (**input == '(') {
+        (*input)++;  // Skip '('
+        int result = expression(input);
+        while (**input == ' ') (*input)++;  // Skip whitespace
+        if (**input != ')') {
             printf("Error: Missing ')'.\n");
             exit(1);
         }
-        input++;  // Skip ')'
+        (*input)++;  // Skip ')'
         return result;
     } else {
-        return number();
+        return number(input);
     }
 }
 
-// Parse a term which is a factor followed by zero or more * or / operations
-int term() {
-    int result = factor();
+int term(char **input) {
+    int result = factor(input);
     while (1) {
-        while (*input == ' ') input++;  // Skip whitespace
+        while (**input == ' ') (*input)++;  // Skip whitespace
 
-        if (*input == '*') {
-            input++;  // Skip '*'
-            result *= factor();
-        } else if (*input == '/') {
-            input++;  // Skip '/'
-            int divisor = factor();
+        if (**input == '*') {
+            (*input)++;  // Skip '*'
+            result *= factor(input);
+        } else if (**input == '/') {
+            (*input)++;  // Skip '/'
+            int divisor = factor(input);
             if (divisor != 0) {
                 result /= divisor;
             } else {
@@ -62,18 +57,17 @@ int term() {
     return result;
 }
 
-// Parse an expression which is a term followed by zero or more + or - operations
-int expression() {
-    int result = term();
+int expression(char **input) {
+    int result = term(input);
     while (1) {
-        while (*input == ' ') input++;  // Skip whitespace
+        while (**input == ' ') (*input)++;  // Skip whitespace
 
-        if (*input == '+') {
-            input++;  // Skip '+'
-            result += term();
-        } else if (*input == '-') {
-            input++;  // Skip '-'
-            result -= term();
+        if (**input == '+') {
+            (*input)++;  // Skip '+'
+            result += term(input);
+        } else if (**input == '-') {
+            (*input)++;  // Skip '-'
+            result -= term(input);
         } else {
             break;
         }
@@ -88,12 +82,14 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+    char *input;
+
     for (int i = 1; i < argc; i++)
     {
         input = argv[i];
         while(*input != '\0')
         {
-            int result = expression();
+            int result = expression(&input);
             while (*input == ' ') input++;  // Skip whitespace
             if (*input != '.' && *input != '\0') {
                 printf("Error: Expression must be deliminated with a period.\n");
